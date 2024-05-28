@@ -1,0 +1,6 @@
+<h2>메시지 추가</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">제출</button>
+</form>

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+    }
+    header {
+        background: #DB7093;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .btn {
+        background-color: #778899;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        display: inline-block;
+        margin: 20px 0; /* 상단과 하단 여백 추가 */
+        transition: background-color 0.3s ease;
+        text-align: center;
+        text-decoration: none;
+        float: right; /* 버튼을 오른쪽으로 정렬 */
+    }
+    .btn:hover {
+        background-color: #688090;
+    }
+    section {
+        padding: 20px;
+        text-align: center;
+    }
+    .list-group {
+        list-style-type: none;
+        padding: 0;
+        clear: both; /* float 속성 해제 */
+    }
+    .list-group-item {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .text-muted {
+        color: #6c757d !important;
+    }
+    .buttons {
+        display: flex;
+        gap: 10px;
+    }
+</style>
+
+<header>
+    <h1>My To-Do List</h1>
+    <p>이곳은 To-Do List를 관리하는 페이지입니다.</p>
+</header>
+
+<a href="{% url 'add_todo_item' %}" class="btn">Add New Task</a> <!-- 버튼을 헤더와 리스트 사이에 배치 -->
+
+<section>
+    <ul class="list-group">
+        {% for todo in todo_items %}
+        <li class="list-group-item">
+            <div>
+                <input type="checkbox" onclick="location.href='{% url 'toggle_todo_item_completed' todo.id %}';" {% if todo.completed %} checked {% endif %}>
+                <span {% if todo.completed %} style="text-decoration: line-through;" {% endif %}>{{ todo.title }}</span>
+            </div>
+            <div>
+                <div class="buttons">
+                    <a href="{% url 'edit_todo_item' todo.id %}" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="{% url 'delete_todo_item' todo.id %}" class="btn btn-danger btn-sm" onclick="return confirm('정말로 삭제하시겠습니까?');">Delete</a>
+                </div>
+                <div class="text-muted">
+                    Created: {{ todo.created_at|date:"Y-m-d H:i" }}<br>
+                    {% if todo.completed_at %}
+                        Completed: {{ todo.completed_at|date:"Y-m-d H:i" }}
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No tasks added yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

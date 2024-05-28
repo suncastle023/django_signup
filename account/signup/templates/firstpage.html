@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .container a {
+            display: block;
+            margin-bottom: 20px;
+            padding: 5px 60px; /* 버튼 내부 여백 설정 */
+            border: 2px solid #000; /* 네모난 테두리 설정 */
+            border-radius: 0; /* 테두리의 모서리를 각지게 만듭니다. */
+            text-decoration: none; /* 링크에 있는 밑줄 제거 */
+            color: #000; /* 텍스트 색상 설정 */
+            font-weight: bold; /* 텍스트 굵게 설정 */
+            font-size: 30px; /* 텍스트 크기 설정 */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if 'signup_success' in request.GET %}
+        <div class="messages">
+            <p>가입이 성공적으로 완료되었습니다. 로그인 해주세요.</p>
+        </div>
+        {% endif %}
+        <a href="{% url 'signup' %}">JOIN</a>
+        <a href="{% url 'login_view' %}">LOGIN</a>
+    </div>
+</body>
+</html>

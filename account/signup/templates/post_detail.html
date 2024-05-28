@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .post-meta {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .post-meta p {
+            margin: 0;
+        }
+        .comment {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .comment-form {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ post.title }}</h1>
+        <div class="post-meta">
+            <p>카테고리: {{ post.category.name }}</p>
+            <p>작성자: {{ post.user.name }}</p>
+            <p>작성일: {{ post.created_at|date:"Y년 n월 j일 H:i" }}</p>
+        </div>
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        <h2>댓글</h2>
+        <div>
+            {% for comment in comments %}
+                <div class="comment">
+                    <p><strong>{{ comment.user.name }}:</strong> {{ comment.content }}</p>
+                    <p><small>{{ comment.created_at|date:"Y년 n월 j일 H:i" }}</small></p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="comment-form">
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">댓글 작성</button>
+            </form>
+        </div>
+        <a href="{% url 'post_list' %}">게시글 목록으로 돌아가기</a>
+    </div>
+    <footer>
+        <p>&copy; 2024 홈페이지. 모든 권리 보유.</p>
+    </footer>
+</body>
+</html>

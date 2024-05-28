@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile, .user-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 300px;
+            margin: 10px;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        p, label {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        input, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #DB7093; /* Hot Pink */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #FF1493; /* Deeper Pink */
+        }
+        .link-button {
+            display: block;
+            width: auto;
+            padding: 10px 15px;
+            margin: 10px auto;
+            text-align: center;
+            background-color: #DB7093; /* Hot Pink */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .link-button:hover {
+            background-color: #FF1493; /* Deeper Pink */
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile">
+        <h1>My Page</h1>
+        {% if photo %}
+            <p>Photo: <img src="{{ photo.url }}" alt="User Photo" style="max-width: 200px; height: auto;"></p>
+        {% endif %}
+        <p>ID: {{ id }}</p>  
+        <p>Name: {{ name }}</p> 
+        <p>E-mail: {{ email }}</p>  
+        <p>Major: {{ major }}</p>  
+        <p>Nickname: {{ nickname }}</p>
+        <p>Phone Number: {{ phone_number }}</p>
+        {% if age %}
+            <p>Age: {{ age }}</p>
+        {% endif %}
+        {% if hobbies %}
+            <p>Hobbies: {{ hobbies }}</p>
+        {% endif %}
+        
+        <a class="link-button" href="{% url 'profile_update' %}">추가 정보 입력 및 수정하기</a>
+        <a class="link-button" href="{% url 'firstpage' %}">Logout</a>
+        <div class="button-container">
+            <button onclick="location.href='{% url 'home' %}'">홈으로 돌아가기</button>
+        </div>
+    </div>
+</body>
+</html>

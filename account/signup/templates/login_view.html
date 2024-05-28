@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/login_view/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Login</button>
+    </form>
+    <!-- 폼 전체와 각 필드별 에러 메시지 출력 -->
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        {{ field.errors }}
+    {% endfor %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Django
+*.log
+*.pot
+*.py[cod]
+*.sqlite3
+*.mo
+*.pot
+*.py[cod]
+
+# Virtualenv
+venv/
+ENV/
+env/
+env.bak/
+*.env
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# MySQL
+*.sql
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db

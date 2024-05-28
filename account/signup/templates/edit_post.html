@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>게시글 수정</h1>
+    </header>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">수정하기</button>
+        </form>
+    </div>
+    <footer>
+        <p>&copy; 2024 홈페이지. 모든 권리 보유.</p>
+    </footer>
+</body>
+</html>

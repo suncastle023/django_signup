@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #DB7093;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .home-button {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background-color: #fff; 
+            color: #778899; 
+            
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: #778899; 
+            color: #fff;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            background-color: #333;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0;
+        }
+        nav ul li a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        nav ul li a:hover {
+            background-color: #111;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header-actions h2 {
+            margin: 0;
+        }
+        .add-post-button {
+            background-color: #778899; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .add-post-button:hover {
+            background-color: #688090; 
+        }
+        .post {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+        }
+        .post-actions {
+            margin-top: 10px;
+        }
+        .post-actions a {
+            margin-right: 10px;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>게시글 목록</h1>
+        <a class="home-button" href="{% url 'home' %}">HOME</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'post_list' %}">전체</a></li>
+            {% for category in categories %}
+                <li><a href="{% url 'post_list_by_category' category.id %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="header-actions">
+            {% if selected_category %}
+                <h2>카테고리: {{ selected_category.name }}</h2>
+            {% else %}
+                <h2>전체 게시글</h2>
+            {% endif %}
+            <a class="add-post-button" href="{% url 'add_post' %}">게시글 추가</a>
+        </div>
+        {% for post in posts %}
+            <div class="post">
+                <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+                <p>{{ post.content|truncatewords:20 }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% endif %}
+                <div class="post-actions">
+                    <a href="{% url 'edit_post' post.id %}">수정</a>
+                    <a href="{% url 'delete_post' post.id %}">삭제</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <footer>
+        <p>&copy; 2024 홈페이지. 모든 권리 보유.</p>
+    </footer>
+</body>
+</html>
